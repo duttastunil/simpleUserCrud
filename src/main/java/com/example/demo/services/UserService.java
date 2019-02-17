@@ -21,7 +21,17 @@ public class UserService {
 	@GetMapping("/user/{id}")
 	
 	public User getUserByID(@PathVariable int id){
+		User user = userdao.findUserByuid(id);
+		if(user!=null)
 		return userdao.findUserByuid(id);
+		else{
+			User dummeyUser = new User();
+			dummeyUser.setUid(id);
+			dummeyUser.setUser_address("No USER EXIST with ID:"+id);
+			dummeyUser.setUserName("NO USER EXIST WITH ID:"+id);
+			return dummeyUser;
+			
+		}
 	}
 	
 	@PostMapping("/createUser/{address}/{name}")
